@@ -433,6 +433,45 @@ Ensure your system has a notification daemon running (e.g., dunst, notify-osd).
 - Verify environment variables are set
 - Use `--debug` to see detailed error messages
 
+### ALSA Warnings on Linux (Homebrew)
+
+When using the Homebrew-installed version on Linux, you may see ALSA warnings like:
+
+```
+ALSA lib dlmisc.c:339:(snd_dlobj_cache_get0) Cannot open shared library libasound_module_pcm_pulse.so
+ALSA lib pcm_rate.c:1581:(snd_pcm_rate_open) Cannot find rate converter
+```
+
+**These warnings are cosmetic and do not affect functionality.** They occur because Homebrew's `alsa-lib` package is missing optional plugin libraries (PulseAudio, JACK, PipeWire, etc.). Sound playback works correctly via direct ALSA.
+
+**To suppress these warnings:**
+
+```bash
+# Option 1: Redirect stderr when invoking claudifier
+claudifier 2>/dev/null
+
+# Option 2: Set environment variable
+LIBASOUND_DEBUG=0 claudifier
+
+# Option 3: In Claude Code hooks config, redirect stderr
+{
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh -c 'claudifier 2>/dev/null'"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Note: Binaries built locally with `cargo install` or `make install` do not show these warnings.
+
 ## Further Reading
 
 - See `CLAUDE.md` for development details
