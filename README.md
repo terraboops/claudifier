@@ -1,8 +1,8 @@
-# Claudifier
+# Boopifier
 
 A universal notification handler for Claude Code events.
 
-Claudifier reads JSON events from stdin (sent by Claude Code hooks) and dispatches them to various notification handlers. Play sounds when Claude responds, get desktop notifications for important events, send yourself Signal messages, and more. **Crucially, it supports project-specific notification configs in your global config file** - perfect for keeping work notification preferences out of work repos while still getting customized notifications for each project.
+Boopifier reads JSON events from stdin (sent by Claude Code hooks) and dispatches them to various notification handlers. Play sounds when Claude responds, get desktop notifications for important events, send yourself Signal messages, and more. **Crucially, it supports project-specific notification configs in your global config file** - perfect for keeping work notification preferences out of work repos while still getting customized notifications for each project.
 
 ## Features
 
@@ -20,8 +20,8 @@ Claudifier reads JSON events from stdin (sent by Claude Code hooks) and dispatch
 
 ```bash
 # Via Homebrew (macOS/Linux)
-brew tap terraboops/claudifier https://github.com/terraboops/claudifier
-brew install claudifier
+brew tap terraboops/boopifier https://github.com/terraboops/boopifier
+brew install boopifier
 
 # Or build from source
 make install
@@ -53,7 +53,7 @@ See the [Claude Code hooks documentation](https://code.claude.com/docs/en/hooks)
         "hooks": [
           {
             "type": "command",
-            "command": "claudifier"
+            "command": "boopifier"
           }
         ]
       }
@@ -63,7 +63,7 @@ See the [Claude Code hooks documentation](https://code.claude.com/docs/en/hooks)
         "hooks": [
           {
             "type": "command",
-            "command": "claudifier"
+            "command": "boopifier"
           }
         ]
       }
@@ -72,17 +72,17 @@ See the [Claude Code hooks documentation](https://code.claude.com/docs/en/hooks)
 }
 ```
 
-This pipes hook events directly to claudifier.
+This pipes hook events directly to boopifier.
 
-**Step 2: Configure claudifier handlers**
+**Step 2: Configure boopifier handlers**
 
-Create a config file. Claudifier automatically finds it using this priority:
-1. `$CLAUDE_PROJECT_DIR/.claude/claudifier.json` (project-specific)
-2. `~/.claude/claudifier.json` (global fallback)
+Create a config file. Boopifier automatically finds it using this priority:
+1. `$CLAUDE_PROJECT_DIR/.claude/boopifier.json` (project-specific)
+2. `~/.claude/boopifier.json` (global fallback)
 
 You can also specify a custom path with `-c /path/to/config.json`
 
-Example `.claude/claudifier.json`:
+Example `.claude/boopifier.json`:
 
 ```json
 {
@@ -109,13 +109,13 @@ Example `.claude/claudifier.json`:
 }
 ```
 
-Now claudifier will play a sound on Notification events and show a desktop notification when Claude stops responding!
+Now boopifier will play a sound on Notification events and show a desktop notification when Claude stops responding!
 
 ### Project-Specific Overrides
 
 You can define project-specific handler configurations in your **global** config file using path patterns. This is useful for work projects where you don't want to commit personal notification settings to the repo.
 
-Add an `overrides` array to `~/.claude/claudifier.json`:
+Add an `overrides` array to `~/.claude/boopifier.json`:
 
 ```json
 {
@@ -151,7 +151,7 @@ Add an `overrides` array to `~/.claude/claudifier.json`:
 - Glob patterns are supported (`*`, `**`, etc.)
 - When a pattern matches, override handlers **replace** base handlers completely
 - If multiple patterns match, the **last match wins**
-- Project-specific `.claude/claudifier.json` files still take full precedence
+- Project-specific `.claude/boopifier.json` files still take full precedence
 
 ## Available Handlers
 
@@ -163,7 +163,7 @@ Add an `overrides` array to `~/.claude/claudifier.json`:
 | `webhook` | HTTP webhooks |
 | `email` | SMTP email |
 
-Run `claudifier --list-handlers` to see all available types.
+Run `boopifier --list-handlers` to see all available types.
 
 ## Configuration Examples
 
@@ -211,7 +211,7 @@ See [GETTING_STARTED.md](GETTING_STARTED.md) for comprehensive documentation.
 
 ## Event Matching
 
-Claudifier receives all fields from Claude Code hook events and makes them available for both matching rules and template substitution in handler configs. See the [Claude Code hooks documentation](https://code.claude.com/docs/en/hooks) for details on what fields are available for each hook type.
+Boopifier receives all fields from Claude Code hook events and makes them available for both matching rules and template substitution in handler configs. See the [Claude Code hooks documentation](https://code.claude.com/docs/en/hooks) for details on what fields are available for each hook type.
 
 Handlers can match on event fields. Use `null` to match all events.
 
@@ -286,7 +286,7 @@ stdin → Event Parser → Config Loader → Event Matcher → Handler Registry 
 ```
 
 - **Event**: Flexible JSON structure from Claude Code
-- **Config**: `.claude/claudifier.json` with handler definitions
+- **Config**: `.claude/boopifier.json` with handler definitions
 - **Matcher**: Pattern matching to filter events
 - **Handlers**: Pluggable notification targets
 

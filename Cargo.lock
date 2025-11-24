@@ -348,6 +348,34 @@ dependencies = [
 ]
 
 [[package]]
+name = "boopifier"
+version = "0.2.0"
+dependencies = [
+ "anyhow",
+ "assert_cmd",
+ "async-trait",
+ "chrono",
+ "clap",
+ "futures",
+ "glob",
+ "lettre",
+ "notify-rust",
+ "once_cell",
+ "predicates",
+ "rand",
+ "regex",
+ "reqwest",
+ "rodio",
+ "serde",
+ "serde_json",
+ "serde_path_to_error",
+ "shellexpand",
+ "tempfile",
+ "thiserror 2.0.17",
+ "tokio",
+]
+
+[[package]]
 name = "bstr"
 version = "1.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -494,34 +522,6 @@ name = "clap_lex"
 version = "0.7.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a1d728cc89cf3aee9ff92b05e62b19ee65a02b5702cff7d5a377e32c6ae29d8d"
-
-[[package]]
-name = "claudifier"
-version = "0.1.1"
-dependencies = [
- "anyhow",
- "assert_cmd",
- "async-trait",
- "chrono",
- "clap",
- "futures",
- "glob",
- "lettre",
- "notify-rust",
- "once_cell",
- "predicates",
- "rand",
- "regex",
- "reqwest",
- "rodio",
- "serde",
- "serde_json",
- "serde_path_to_error",
- "shellexpand",
- "tempfile",
- "thiserror 2.0.17",
- "tokio",
-]
 
 [[package]]
 name = "claxon"

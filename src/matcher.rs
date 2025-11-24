@@ -19,9 +19,9 @@ use std::collections::HashMap;
 /// # Examples
 ///
 /// ```
-/// use claudifier::matcher::matches;
-/// use claudifier::event::Event;
-/// use claudifier::config::{MatchRules, MatchType};
+/// use boopifier::matcher::matches;
+/// use boopifier::event::Event;
+/// use boopifier::config::{MatchRules, MatchType};
 /// use std::collections::HashMap;
 /// use serde_json::json;
 ///

@@ -1,9 +1,9 @@
-//! Claudifier - Universal notification receiver for Claude Code events.
+//! Boopifier - Universal notification receiver for Claude Code events.
 //!
 //! Reads JSON events from stdin and dispatches them to configured handlers.
 
 use clap::Parser;
-use claudifier::{hook_from_event, process_event, Config, Event, HandlerOutcome, HandlerRegistry};
+use boopifier::{hook_from_event, process_event, Config, Event, HandlerOutcome, HandlerRegistry};
 use serde_json::json;
 use std::fs::OpenOptions;
 use std::io::{self, BufRead, Write};
@@ -11,7 +11,7 @@ use std::path::PathBuf;
 use std::process;
 
 #[derive(Parser)]
-#[command(name = "claudifier")]
+#[command(name = "boopifier")]
 #[command(author, version, about)]
 #[command(about = "Universal notification handler for Claude Code events")]
 struct Cli {
@@ -19,7 +19,7 @@ struct Cli {
     #[arg(short, long)]
     config: Option<PathBuf>,
 
-    /// Enable debug logging to /tmp/claudifier.log
+    /// Enable debug logging to /tmp/boopifier.log
     #[arg(short, long)]
     debug: bool,
 
@@ -63,7 +63,7 @@ impl DebugLogger {
     fn new(enabled: bool) -> Self {
         Self {
             enabled,
-            log_path: PathBuf::from("/tmp/claudifier.log"),
+            log_path: PathBuf::from("/tmp/boopifier.log"),
         }
     }
 
@@ -89,7 +89,7 @@ async fn main() {
     let logger = DebugLogger::new(cli.debug);
 
     // Set global debug mode for handlers
-    claudifier::set_debug_mode(cli.debug);
+    boopifier::set_debug_mode(cli.debug);
 
     // Suppress ALSA errors early (before any audio initialization)
     #[cfg(target_os = "linux")]
@@ -103,7 +103,7 @@ async fn main() {
         return;
     }
 
-    logger.log("Claudifier starting");
+    logger.log("Boopifier starting");
 
     // Resolve config file path
     let config_path = match &cli.config {
@@ -131,7 +131,7 @@ async fn main() {
     // Apply project-specific overrides if using global config
     if let Ok(project_dir) = std::env::var("CLAUDE_PROJECT_DIR") {
         // Only apply overrides if we're not using a project-specific config
-        let project_config_path = PathBuf::from(&project_dir).join(".claude/claudifier.json");
+        let project_config_path = PathBuf::from(&project_dir).join(".claude/boopifier.json");
         if !project_config_path.exists() {
             logger.log(&format!("Checking overrides for project: {}", project_dir));
             config.apply_overrides(&project_dir);
@@ -227,15 +227,15 @@ async fn main() {
 /// Resolve the config file path using Claude Code conventions.
 ///
 /// Resolution order:
-/// 1. $CLAUDE_PROJECT_DIR/.claude/claudifier.json (if CLAUDE_PROJECT_DIR is set and file exists)
-/// 2. ~/.claude/claudifier.json (global fallback, may include path-based overrides)
+/// 1. $CLAUDE_PROJECT_DIR/.claude/boopifier.json (if CLAUDE_PROJECT_DIR is set and file exists)
+/// 2. ~/.claude/boopifier.json (global fallback, may include path-based overrides)
 ///
 /// Note: When using the global config, project-specific overrides will be applied
 /// based on glob pattern matching against $CLAUDE_PROJECT_DIR.
 fn resolve_config_path() -> PathBuf {
     // Try project-specific config if CLAUDE_PROJECT_DIR is set
     if let Ok(project_dir) = std::env::var("CLAUDE_PROJECT_DIR") {
-        let project_config = PathBuf::from(project_dir).join(".claude/claudifier.json");
+        let project_config = PathBuf::from(project_dir).join(".claude/boopifier.json");
         if project_config.exists() {
             return project_config;
         }
@@ -243,7 +243,7 @@ fn resolve_config_path() -> PathBuf {
 
     // Fall back to global config
     let home = std::env::var("HOME").unwrap_or_else(|_| ".".to_string());
-    PathBuf::from(home).join(".claude/claudifier.json")
+    PathBuf::from(home).join(".claude/boopifier.json")
 }
 
 fn list_available_handlers() {
@@ -258,7 +258,7 @@ fn list_available_handlers() {
 fn output_hook_error(error_message: &str) {
     let response = json!({
         "continue": true,
-        "systemMessage": format!("Claudifier warning: {}", error_message)
+        "systemMessage": format!("Boopifier warning: {}", error_message)
     });
 
     if let Ok(json_str) = serde_json::to_string(&response) {

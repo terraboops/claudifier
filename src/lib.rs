@@ -1,4 +1,4 @@
-//! Claudifier - A universal notification receiver for Claude Code events.
+//! Boopifier - A universal notification receiver for Claude Code events.
 //!
 //! This library receives JSON events from Claude Code hooks via stdin and dispatches
 //! them to various notification handlers based on configuration.
@@ -6,7 +6,7 @@
 //! # Architecture
 //!
 //! - **Event**: JSON events from Claude Code
-//! - **Config**: Configuration from `.claude/claudifier.json`
+//! - **Config**: Configuration from `.claude/boopifier.json`
 //! - **Matcher**: Pattern matching to filter events
 //! - **Handlers**: Pluggable notification targets (desktop, sound, signal, webhook, email)
 //!
@@ -15,11 +15,11 @@
 //! Processing events from stdin:
 //!
 //! ```no_run
-//! use claudifier::{Config, HandlerRegistry, process_event};
+//! use boopifier::{Config, HandlerRegistry, process_event};
 //!
 //! #[tokio::main]
 //! async fn main() -> anyhow::Result<()> {
-//!     let config = Config::load(".claude/claudifier.json")?;
+//!     let config = Config::load(".claude/boopifier.json")?;
 //!     let registry = HandlerRegistry::new();
 //!
 //!     let event_json = r#"{"event_type": "success", "tool": "bash"}"#;

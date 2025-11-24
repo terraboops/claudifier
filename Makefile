@@ -5,7 +5,7 @@ all: build
 
 # Build the project
 build:
-	@echo "Building claudifier..."
+	@echo "Building boopifier..."
 	cargo build --release
 
 # Run tests
@@ -15,9 +15,9 @@ test:
 
 # Install to ~/.cargo/bin
 install: build
-	@echo "Installing claudifier to ~/.cargo/bin..."
+	@echo "Installing boopifier to ~/.cargo/bin..."
 	cargo install --path .
-	@echo "Installation complete! Run 'claudifier --help' to get started."
+	@echo "Installation complete! Run 'boopifier --help' to get started."
 
 # Clean build artifacts
 clean:
@@ -26,8 +26,8 @@ clean:
 
 # Uninstall from ~/.cargo/bin
 uninstall:
-	@echo "Uninstalling claudifier..."
-	cargo uninstall claudifier
+	@echo "Uninstalling boopifier..."
+	cargo uninstall boopifier
 	@echo "Uninstall complete."
 
 # Run signal-cli for testing
@@ -44,7 +44,7 @@ run-signal-cli:
 
 # Display help
 help:
-	@echo "Claudifier - Universal notification receiver for Claude Code"
+	@echo "Boopifier - Universal notification receiver for Claude Code"
 	@echo ""
 	@echo "Available targets:"
 	@echo "  make build           - Build the project in release mode"

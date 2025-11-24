@@ -1,13 +1,13 @@
 [package]
-name = "claudifier"
-version = "0.1.1"
+name = "boopifier"
+version = "0.2.0"
 edition = "2021"
 authors = ["Terra"]
 description = "Universal notification handler for Claude Code events"
 license = "Apache-2.0"
-repository = "https://github.com/terraboops/claudifier"
+repository = "https://github.com/terraboops/boopifier"
 readme = "README.md"
-keywords = ["claude", "notifications", "cli"]
+keywords = ["claude", "notifications", "cli", "hooks"]
 categories = ["command-line-utilities"]
 
 [dependencies]
@@ -50,9 +50,9 @@ predicates = "3.1"
 tempfile = "3.14"
 
 [lib]
-name = "claudifier"
+name = "boopifier"
 path = "src/lib.rs"
 
 [[bin]]
-name = "claudifier"
+name = "boopifier"
 path = "src/main.rs"

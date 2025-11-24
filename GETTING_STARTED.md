@@ -1,14 +1,14 @@
-# Getting Started with Claudifier
+# Getting Started with Boopifier
 
-Claudifier is a universal notification handler for Claude Code events. It reads JSON events from stdin and dispatches them to various notification handlers based on your configuration.
+Boopifier is a universal notification handler for Claude Code events. It reads JSON events from stdin and dispatches them to various notification handlers based on your configuration.
 
 ## Installation
 
 ### Via Homebrew (Recommended)
 
 ```bash
-brew tap terraboops/claudifier https://github.com/terraboops/claudifier
-brew install claudifier
+brew tap terraboops/boopifier https://github.com/terraboops/boopifier
+brew install boopifier
 ```
 
 ### From Source
@@ -19,8 +19,8 @@ brew install claudifier
 
 ```bash
 # Clone the repository
-git clone https://github.com/terraboops/claudifier.git
-cd claudifier
+git clone https://github.com/terraboops/boopifier.git
+cd boopifier
 
 # Build and install
 make install
@@ -31,7 +31,7 @@ make install
 ### 1. List Available Handlers
 
 ```bash
-claudifier --list-handlers
+boopifier --list-handlers
 ```
 
 This will show all available notification types:
@@ -43,11 +43,11 @@ This will show all available notification types:
 
 ### 2. Create Configuration
 
-Claudifier automatically finds your config file:
-1. **Project-specific**: `$CLAUDE_PROJECT_DIR/.claude/claudifier.json` (when run via Claude Code hooks)
-2. **Global fallback**: `~/.claude/claudifier.json`
+Boopifier automatically finds your config file:
+1. **Project-specific**: `$CLAUDE_PROJECT_DIR/.claude/boopifier.json` (when run via Claude Code hooks)
+2. **Global fallback**: `~/.claude/boopifier.json`
 
-Create a `.claude/claudifier.json` file in your project (or globally at `~/.claude/claudifier.json`):
+Create a `.claude/boopifier.json` file in your project (or globally at `~/.claude/boopifier.json`):
 
 ```json
 {
@@ -89,10 +89,10 @@ Create a `.claude/claudifier.json` file in your project (or globally at `~/.clau
 
 ```bash
 # Process one event and exit
-echo '{"status": "success", "task": "build"}' | claudifier
+echo '{"status": "success", "task": "build"}' | boopifier
 
 # Show debug output including ALSA warnings
-echo '{"status": "success", "task": "build"}' | claudifier --debug
+echo '{"status": "success", "task": "build"}' | boopifier --debug
 ```
 
 ## Configuration Guide
@@ -152,7 +152,7 @@ Each handler has the following structure:
 
 ### Secrets Management
 
-Claudifier supports secure credential management:
+Boopifier supports secure credential management:
 
 **Environment variables:**
 ```json
@@ -309,7 +309,7 @@ Play audio files using rodio. Supports WAV, MP3, and other common formats.
 
 ### Configuring Hooks
 
-Add claudifier to your Claude Code hooks in `~/.claude/settings.json` or `.claude/settings.json`:
+Add boopifier to your Claude Code hooks in `~/.claude/settings.json` or `.claude/settings.json`:
 
 ```json
 {
@@ -319,7 +319,7 @@ Add claudifier to your Claude Code hooks in `~/.claude/settings.json` or `.claud
         "hooks": [
           {
             "type": "command",
-            "command": "claudifier"
+            "command": "boopifier"
           }
         ]
       }
@@ -329,7 +329,7 @@ Add claudifier to your Claude Code hooks in `~/.claude/settings.json` or `.claud
         "hooks": [
           {
             "type": "command",
-            "command": "claudifier"
+            "command": "boopifier"
           }
         ]
       }
@@ -352,11 +352,11 @@ To troubleshoot, add `--debug` flag to the command:
 ```json
 {
   "type": "command",
-  "command": "claudifier --debug"
+  "command": "boopifier --debug"
 }
 ```
 
-This logs to `/tmp/claudifier.log`.
+This logs to `/tmp/boopifier.log`.
 
 ## Common Use Cases
 
@@ -447,11 +447,11 @@ ALSA lib pcm_rate.c:1581:(snd_pcm_rate_open) Cannot find rate converter
 **To suppress these warnings:**
 
 ```bash
-# Option 1: Redirect stderr when invoking claudifier
-claudifier 2>/dev/null
+# Option 1: Redirect stderr when invoking boopifier
+boopifier 2>/dev/null
 
 # Option 2: Set environment variable
-LIBASOUND_DEBUG=0 claudifier
+LIBASOUND_DEBUG=0 boopifier
 
 # Option 3: In Claude Code hooks config, redirect stderr
 {
@@ -461,7 +461,7 @@ LIBASOUND_DEBUG=0 claudifier
         "hooks": [
           {
             "type": "command",
-            "command": "sh -c 'claudifier 2>/dev/null'"
+            "command": "sh -c 'boopifier 2>/dev/null'"
           }
         ]
       }
@@ -476,4 +476,4 @@ Note: Binaries built locally with `cargo install` or `make install` do not show 
 
 - See `CLAUDE.md` for development details
 - Check `Cargo.toml` for dependency information
-- Run `claudifier --help` for CLI options
+- Run `boopifier --help` for CLI options
